@@ -80,7 +80,7 @@ export function useChatbot() {
     } finally {
       setIsLoading(false);
     }
-  }, [input]);
+  }, [input, messages, selectedModel, deepThinking, searchWeb]);
 
   const cancelRequest = useCallback(() => { abortRef.current?.abort(); setIsLoading(false); }, []);
   const clearChat     = useCallback(() => { setMessages([]); setActiveSources(null); }, []);

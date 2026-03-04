@@ -87,6 +87,7 @@ function ChatApp() {
             onSend={bot.sendMessage} isLoading={bot.isLoading}
             deepThinking={bot.deepThinking} setDeepThinking={bot.setDeepThinking}
             searchWeb={bot.searchWeb} setSearchWeb={bot.setSearchWeb}
+            setModelModalOpen={bot.setModelModalOpen}
           />
         </div>
 

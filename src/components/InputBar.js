@@ -1,6 +1,6 @@
 import { useTheme } from "./ThemeContext";
 
-export default function InputBar({ input, setInput, onSend, isLoading, deepThinking, setDeepThinking, searchWeb, setSearchWeb }) {
+export default function InputBar({ input, setInput, onSend, isLoading, deepThinking, setDeepThinking, searchWeb, setSearchWeb, setModelModalOpen }) {
   const { t } = useTheme();
 
   return (
@@ -27,7 +27,7 @@ export default function InputBar({ input, setInput, onSend, isLoading, deepThink
           }}
         />
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-        <div style={{
+        <div onClick={() => setModelModalOpen(true)} style={{
           width: 30, height: 30, borderRadius: "50%", cursor: "pointer",
           display: "flex", alignItems: "center", justifyContent: "center",
           color: t.iconColor, fontSize: 22, lineHeight: 1, flexShrink: 0,
@@ -37,11 +37,11 @@ export default function InputBar({ input, setInput, onSend, isLoading, deepThink
         <Chip label="Search the web" active={searchWeb} onClick={() => setSearchWeb(!searchWeb)} t={t} />
 
         <div style={{ marginLeft: "auto", flexShrink: 0 }}>
-          <div style={{
-            width: 36, height: 36, borderRadius: "50%",
-            background: "linear-gradient(135deg,#4facfe 0%,#00f2fe 100%)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            fontSize: 18, boxShadow: "0 2px 10px rgba(79,172,254,0.45)",
+        <div onClick={() => setModelModalOpen(true)} style={{
+          width: 36, height: 36, borderRadius: "50%",
+          background: "linear-gradient(135deg,#4facfe 0%,#00f2fe 100%)",
+          display: "flex", alignItems: "center", justifyContent: "center",
+          fontSize: 18, boxShadow: "0 2px 10px rgba(79,172,254,0.45)", cursor: "pointer",
           }}>🤖</div>
         </div>
       </div>

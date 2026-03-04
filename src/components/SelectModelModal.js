@@ -18,7 +18,9 @@ export default function SelectModelModal({
   const buttonBgHover = dark ? "rgba(255,255,255,0.12)" : "rgba(0,0,0,0.12)";
   const buttonSelectedBg = "rgba(59,130,246,0.8)";
   const buttonSelectedBorder = "rgba(59,130,246,0.6)";
-  console.log(t.appBg);
+  const insetShadow = dark
+    ? "-4px -4px 20px 0px rgba(255,255,255,0.08) inset, 4px 4px 20px 0px rgba(255,255,255,0.08) inset"
+    : "-4px -4px 20px 0px rgba(0,0,0,0.08) inset, 4px 4px 20px 0px rgba(0,0,0,0.08) inset";
 
   return (
     <div style={{
