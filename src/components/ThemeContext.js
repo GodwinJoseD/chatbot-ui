@@ -18,6 +18,7 @@ export function ThemeProvider({ children }) {
     ? {
         appBg: "linear-gradient(180deg,#2c2018 0%,#3a3028 15%,#4a4540 35%,#3d4a55 60%,#2a3a48 80%,#1e2e3a 100%)",
         sidebarBg: "rgba(30,32,38,0.72)",
+        plusiconBg:"#6b686b",
         windowBg: "rgba(30,32,38,0.72)",
         windowBorder: "rgba(255,255,255,0.08)",
         cardBg: "rgba(42,44,52,0.85)",

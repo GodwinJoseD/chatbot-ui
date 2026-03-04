@@ -12,6 +12,7 @@ import robotLoadingImage from "./assets/RobotLoading.png";
 
 function ChatApp() {
   const { dark, t } = useTheme();
+const [sidebarOpen, setSidebarOpen] = useState(false);
   const bot = useChatbot();
   const messagesEndRef = useRef(null);
 
@@ -44,14 +45,21 @@ function ChatApp() {
       }}>
 
         <div style={{
-          width: 52, flexShrink: 0,
-          background: t.sidebarBg,
-          padding: "10px 8px",
-          position: "relative", zIndex: 2,
-          display: "flex", flexDirection: "column",
-        }}>
-          <Sidebar onSettingsClick={() => bot.setSettingsOpen(!bot.settingsOpen)} />
-        </div>
+  width: sidebarOpen ? 280 : 52,
+  flexShrink: 0,
+  background: t.sidebarBg,
+  padding: "10px 8px",
+  position: "relative", zIndex: 2,
+  display: "flex", flexDirection: "column",
+  transition: "width 0.25s cubic-bezier(.25,.8,.25,1)",
+  overflow: "hidden",
+}}>
+  <Sidebar
+    onSettingsClick={() => bot.setSettingsOpen(!bot.settingsOpen)}
+    panelOpen={sidebarOpen}
+    setPanelOpen={setSidebarOpen}
+  />
+</div>
 
         <div style={{
           flex: 1,
@@ -120,49 +128,96 @@ function ChatApp() {
 }
 
 
-/* 🔥 Loading Screen Component */
 function LoadingScreen() {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 100) { clearInterval(interval); return 100; }
+        return prev + Math.random() * 18;
+      });
+    }, 120);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div style={{
-      position: "fixed",
-      inset: 0,
-      background: "rgba(20,20,30,0.85)",
-      backdropFilter: "blur(20px)",
+      minHeight: "100vh",
+      width: "100%",
+      background: `url(${bg}) center/cover fixed`,
       display: "flex",
-      flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-      zIndex: 9999,
-      color: "#fff"
+      fontFamily: "'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif",
     }}>
-      <img
-        src={robotLoadingImage}
-        alt="Loading"
-        style={{
-          width: 120,
-          marginBottom: 30,
-          animation: "float 3s ease-in-out infinite"
-        }}
-      />
-
-      <div style={{ marginBottom: 12, fontSize: 15, opacity: 0.8 }}>
-        Downloading Consciousness
-      </div>
-
       <div style={{
-        width: 260,
-        height: 6,
-        background: "rgba(255,255,255,0.2)",
-        borderRadius: 10,
-        overflow: "hidden"
+        width: 920, height: 640,
+        borderRadius: 18,
+        overflow: "hidden",
+        position: "relative",
+        background: "rgba(30, 30, 40, 0.55)",
+        backdropFilter: "blur(40px)",
+        WebkitBackdropFilter: "blur(40px)",
+        boxShadow: "0 40px 100px rgba(0,0,0,0.7), 0 0 0 0.5px rgba(255,255,255,0.06)",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 0,
       }}>
+
         <div style={{
-          width: "60%",
-          height: "100%",
-          background: "#3B82F6",
-          borderRadius: 10,
-          transition: "width 1s linear"
-        }} />
+          position: "absolute", top: 16, left: 16,
+          display: "flex", gap: 7,
+        }}>
+          <div style={{ width: 13, height: 13, borderRadius: "50%"}} />
+          <div style={{ width: 13, height: 13, borderRadius: "50%"}} />
+          <div style={{ width: 13, height: 13, borderRadius: "50%" }} />
+        </div>
+        <div style={{
+          animation: "floatRobot 3s ease-in-out infinite",
+          marginBottom: 32,
+        }}>
+          <img
+            src={robotLoadingImage}
+            alt="Loading"
+            style={{ width: 150, height: 150, objectFit: "contain", filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.5))" }}
+          />
+        </div>
+        <div style={{
+          fontSize: 15,
+          color: "rgba(255,255,255,0.75)",
+          letterSpacing: "0.04em",
+          marginBottom: 16,
+          fontWeight: 400,
+        }}>
+          Downloading Consciousness
+        </div>
+
+        <div style={{
+          width: 220,
+          height: 4,
+          background: "rgba(255,255,255,0.12)",
+          borderRadius: 99,
+          overflow: "hidden",
+        }}>
+          <div style={{
+            width: `${Math.min(progress, 100)}%`,
+            height: "100%",
+            background: "linear-gradient(90deg, #3B82F6, #60a5fa)",
+            borderRadius: 99,
+            transition: "width 0.15s ease",
+            boxShadow: "0 0 10px rgba(59,130,246,0.6)",
+          }} />
+        </div>
+
+        <style>{`
+          @keyframes floatRobot {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-14px); }
+          }
+        `}</style>
       </div>
     </div>
   );
@@ -175,7 +230,7 @@ export default function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 1000); // ⏳ loading duration (adjust if needed)
+    }, 1000); 
 
     return () => clearTimeout(timer);
   }, []);
