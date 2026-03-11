@@ -16,6 +16,8 @@ const [sidebarOpen, setSidebarOpen] = useState(false);
   const bot = useChatbot();
   const messagesEndRef = useRef(null);
 
+  console.log(dark);
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [bot.messages]);
@@ -34,14 +36,17 @@ const [sidebarOpen, setSidebarOpen] = useState(false);
       }}>
 
       <div style={{
-        width: 920, height: 640,
-        borderRadius: 18,
-        display: "flex",
-        position: "relative",
-        overflow: "hidden",
-        boxShadow: dark
-          ? "0 40px 100px rgba(0,0,0,0.7), 0 0 0 0.5px rgba(255,255,255,0.06)"
-          : "0 40px 100px rgba(0,0,0,0.2), 0 0 0 0.5px rgba(255,255,255,0.4)",
+          width: 920, height: 640,
+  borderRadius: 18,
+  display: "flex",
+  position: "relative",
+  overflow: "hidden",
+  background: t.windowBg,
+  backdropFilter: "blur(34px)",
+  WebkitBackdropFilter: "blur(34px)",
+  border: "1px solid rgba(255, 255, 255, 0.30)",
+  boxShadow: "-4px -4px 20px 0px rgba(255,255,255,0.32) inset, 4px 4px 20px 0px rgba(255,255,255,0.32) inset",
+  opacity: 0.94,
       }}>
 
         <div style={{
@@ -62,16 +67,12 @@ const [sidebarOpen, setSidebarOpen] = useState(false);
 </div>
 
         <div style={{
-          flex: 1,
-          background: t.windowBg,
-          backdropFilter: "blur(24px)",
-          WebkitBackdropFilter: "blur(24px)",
-          border: `1px solid ${t.windowBorder}`,
-          borderRadius: "0 18px 18px 0",
-          display: "flex",
-          flexDirection: "column",
-          overflow: "hidden",
-          minWidth: 0,
+  flex: 1,
+  borderRadius: "0 18px 18px 0",
+  display: "flex",
+  flexDirection: "column",
+  overflow: "hidden",
+  minWidth: 0,
         }}>
           <div style={{
             flex: 1, overflowY: "auto",

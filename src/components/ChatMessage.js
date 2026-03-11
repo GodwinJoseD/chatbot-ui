@@ -31,25 +31,34 @@ export function AssistantMessage({ message, onSourcesClick }) {
         <p style={{ margin: 0, fontSize: 13.5, color: t.textSecondary, lineHeight: 1.65 }}>
           {message.content}
         </p>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 2px 0" }}>
-        <div style={{ cursor: "pointer", lineHeight: 0 }}>
-          <CopyIcon color={t.textMuted} />
-        </div>
-        {message.sources && (
-          <button
-            onClick={() => onSourcesClick && onSourcesClick(message.id)}
-            style={{
-              padding: "5px 16px", borderRadius: 20,
-              border: `1px solid ${t.sourcesBtnBorder}`,
-              background: t.sourcesBg,
-              color: t.sourcesBtnText,
-              fontSize: 12.5, cursor: "pointer", fontWeight: 500,
-            }}
-          >
-            Sources
-          </button>
-        )}
-      </div>
+              <div style={{ padding: "8px 2px 0" }}>
+  <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-start" }}>
+    
+    <div style={{ cursor: "pointer", lineHeight: 0 }}>
+      <CopyIcon color={t.textMuted} />
+    </div>
+
+    {message.sources && (
+      <button
+      className="sources-btn"
+        onClick={() => onSourcesClick && onSourcesClick(message.id)}
+        style={{
+          padding: "5px 16px",
+          borderRadius: 20,
+          border: `1px solid ${t.sourcesBtnBorder}`,
+          background: t.sourcesBg,
+          color: t.sourcesBtnText,
+          fontSize: 12.5,
+          cursor: "pointer",
+          fontWeight: 500,
+        }}
+      >
+        Sources
+      </button>
+    )}
+
+  </div>
+</div>
       </div>
 
     </div>
